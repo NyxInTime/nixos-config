@@ -92,7 +92,12 @@
         installCargo = true;
         installRustc = true;
       };
-      qmlls.enable = true;
+      qmlls = {
+        enable = true;
+        filetypes = [
+          "qml"
+        ];
+      };
     };
   };
 }

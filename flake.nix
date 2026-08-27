@@ -14,6 +14,17 @@
     qylock.url = "github:Darkkal44/qylock";
     sops-nix.url = "github:Mic92/sops-nix";
 
+    umbriel.url = "git+https://github.com/noctalia-dev/umbriel";
+    xdg-desktop-portal-umbriel.url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs"; # this line is optional, prevents downloading two versions of nixpkgs but disables cache
+    };
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
   outputs =
     {
@@ -23,6 +34,7 @@
       aagl,
       qylock,
       nixvim,
+      noctalia-greeter,
       ...
     }@inputs:
     {
@@ -43,7 +55,7 @@
                 inputs.nixvim.homeModules.nixvim
               ];
 
-              users.nic = import ./laptop/home.nix;
+              users.nyx = import ./laptop/home.nix;
 
             };
           }
@@ -61,29 +73,48 @@
             programs.wavey-launcher.enable = true;
             programs.sleepy-launcher.enable = true;
           }
-          qylock.nixosModules.default
-          ({ pkgs, ... }: {
-            services.displayManager.sddm.enable = true;
-            services.displayManager.sddm.wayland.enable = true;
-
-            programs.qylock = {
+          {
+            imports = [ noctalia-greeter.nixosModules.default ];
+            programs.noctalia-greeter = {
               enable = true;
-              theme = "osu"; # any directory name under themes/
-              # sddm.enable = true;             # installs theme + sets it active (default)
-              # quickshell.enable = true;       # adds `qylock-lock` to PATH (default)
 
-              # Optional per-theme tweaks (replaces the interactive prompts):
-              themeOptions = {
-                terraria.backgroundMode = "time"; # time | random | static
-                Genshin.backgroundMode = "time";
-                clockwork.orbital = {
-                  themeMode = "dark";
-                  enableWindup = true;
+              # Optional configuration
+              greeter-args = "";
+              # Full declarative greeter.toml (overwritten on each activation).
+              # See examples/greeter.toml for every key (appearance.palette, output, …).
+              settings = {
+                keyboard = {
+                  layout = "us";
                 };
-                osu.gameMode = "menu"; # menu | game
               };
             };
-          })
+
+          }
+          /*
+            qylock.nixosModules.default
+            ({ pkgs, ... }: {
+              services.displayManager.sddm.enable = true;
+              services.displayManager.sddm.wayland.enable = true;
+
+              programs.qylock = {
+                enable = true;
+                theme = "terraria"; # any directory name under themes/
+                # sddm.enable = true;             # installs theme + sets it active (default)
+                # quickshell.enable = true;       # adds `qylock-lock` to PATH (default)
+
+                # Optional per-theme tweaks (replaces the interactive prompts):
+                themeOptions = {
+                  terraria.backgroundMode = "time"; # time | random | static
+                  Genshin.backgroundMode = "time";
+                  clockwork.orbital = {
+                    themeMode = "dark";
+                    enableWindup = true;
+                  };
+                  osu.gameMode = "menu"; # menu | game
+                };
+              };
+            })
+          */
         ];
       };
       # first server configuration

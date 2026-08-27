@@ -2,12 +2,13 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
 {
-  home.username = "nic";
-  home.homeDirectory = "/home/nic";
+  home.username = lib.mkForce "nyx";
+  home.homeDirectory = lib.mkForce "/home/nyx";
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
@@ -17,13 +18,15 @@
 
   imports = [
     ./../nixvim.nix
+    inputs.umbriel.homeModules.default
+    inputs.noctalia.homeModules.default
   ];
 
   programs.git = {
     enable = true;
     settings = {
       user = {
-        name = "Nic.In.Time";
+        name = "Nyx.In.Time";
         email = "nicintime9@gmail.com";
       };
       init.defaultBranch = "main";
@@ -33,12 +36,13 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake /home/nic/.config/nixos/";
-      update = "sudo nix flake update --flake /home/nic/.config/nixos/";
+      rebuild = "sudo nixos-rebuild switch --flake /home/nyx/.config/nixos/";
+      update = "sudo nix flake update --flake /home/nyx/.config/nixos/";
       ssh-nyx = "ssh nyx@ssh.nicintime.ca";
       ssh-testing = "ssh testing@ssh2.nicintime.ca";
       hypr = "start-hyprland";
       dawson-vpn = "sudo openfortivpn -c ~/.config/nixos/vpn-config.txt --saml-login";
+      run-html = "xdg-open";
     };
   };
 
@@ -69,5 +73,46 @@
 
     };
   };
+
+  programs.umbriel = {
+    enable = true;
+    settings = {
+      general.autostart = [ "noctalia" ];
+      layout.gap = 5;
+      input.keyboard.layout = "us";
+      keybinds = {
+        "Mod+Return" = "spawn:kitty";
+        "Mod+Q" = "window-close";
+        "Mod" = "spawn:noctalia msg panel-toggle launcher";
+      };
+      layout = {
+        mode = "scrolling";
+      };
+
+    };
+  };
+
+  programs.noctalia = {
+    enable = true;
+
+    settings = {
+      # This may also be a string or path to a .toml file.
+      theme = {
+        mode = "dark";
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
+
+      wallpaper = {
+        enabled = true;
+        default.path = "/home/nix/.config/wallpaper/wallpaper3/jpg";
+      };
+    };
+  };
+
+  #xdg.userDirs = {
+  #enable = true;
+  #createDirectories = true;
+  #};
 
 }

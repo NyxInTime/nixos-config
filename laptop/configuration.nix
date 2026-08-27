@@ -71,6 +71,20 @@
 
   hardware.uinput.enable = true;
 
+  hardware.bluetooth.enable = true;
+
+  services.power-profiles-daemon.enable = true;
+
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = true;
+      PermitRootLogin = "no";
+    };
+  };
+
   boot.kernelModules = [ "uinput" ];
 
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -124,7 +138,7 @@
   #     tree
   #   ];
   # };
-  users.users.nic = {
+  users.users.nyx = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
@@ -218,7 +232,7 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
