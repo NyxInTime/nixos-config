@@ -103,6 +103,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
 
   programs.steam.enable = true;
@@ -194,6 +195,7 @@
     obs-studio
     serie
     openfortivpn
+    discord-canary
   ];
   #onnly using this because nvim transparent doesnt work
   nixpkgs.config.allowUnfree = true;
