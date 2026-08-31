@@ -98,6 +98,7 @@
           "qml"
         ];
       };
+      lua_ls.enable = true;
     };
   };
 }
