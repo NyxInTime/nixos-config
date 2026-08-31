@@ -151,6 +151,7 @@
     443
     8080
     9418
+    8000
   ];
 
   # Configure network connections interactively with nmcli or nmtui.
@@ -224,6 +225,9 @@
     vim
     cloudflared
     tmux
+    postfix
+    rustup
+    gcc
   ];
   nix.settings.experimental-features = [
     "nix-command"

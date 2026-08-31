@@ -44,6 +44,13 @@
             };
             service = "https://127.0.0.1:8080";
           };
+          "upload.nicintime.ca" = {
+            originRequest = {
+              noTLSVerify = true;
+              httpHostHeader = "upload.nicintime.ca";
+            };
+            service = "http://127.0.0.1:8000";
+          };
 
         };
         default = "http_status:404";

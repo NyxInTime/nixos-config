@@ -28,7 +28,7 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake /home/nyx/.config/nixos/";
+      rebuild = "tmux new-session -s rebuild 'sudo nixos-rebuild switch --flake /home/nyx/.config/nixos/; bash'";
     };
   };
 }
