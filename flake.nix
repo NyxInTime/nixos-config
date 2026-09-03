@@ -24,6 +24,7 @@
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
 
   };
   outputs =

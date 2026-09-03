@@ -195,8 +195,10 @@
     obs-studio
     serie
     openfortivpn
-    discord-canary
+    maven
   ];
+
+  programs.java.enable = true;
   #onnly using this because nvim transparent doesnt work
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate =

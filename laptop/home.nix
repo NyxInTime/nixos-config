@@ -14,6 +14,7 @@
   home.packages = with pkgs; [
     nodejs
     pkgs.devenv
+    inputs.hytale-launcher.packages.${pkgs.system}.default
   ];
 
   imports = [
@@ -27,9 +28,14 @@
     settings = {
       user = {
         name = "Nyx.In.Time";
-        email = "nicintime9@gmail.com";
+        email = "nyx@nicintime.ca";
       };
       init.defaultBranch = "main";
+    };
+    signing = {
+      format = "ssh";
+      signByDefault = true;
+      key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
     };
   };
 
@@ -43,7 +49,13 @@
       hypr = "start-hyprland";
       dawson-vpn = "sudo openfortivpn -c ~/.config/nixos/vpn-config.txt --saml-login";
       run-html = "xdg-open";
+      html-server = "python3 -m http.server";
     };
+  };
+
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
   };
 
   home.pointerCursor = {
