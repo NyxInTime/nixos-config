@@ -26,7 +26,11 @@
         settings = {
           defaults = {
             file_ignore_patterns = [
+              # NOTE this uses lua pattern matching, not regex
               "^.git/"
+              "*.tscn$"
+              "*.gd.uid$"
+              "^target/"
             ];
           };
           pickers = {
@@ -104,6 +108,8 @@
           ];
         };
       };
+      wakatime.enable = true;
+      godot.enable = true;
     };
     extraPlugins = [
       (pkgs.vimUtils.buildVimPlugin {
@@ -120,6 +126,12 @@
       	require('ultimate-autopair').setup({
 
       	})
+        vim.lsp.config('gdscript', {
+            cmd = vim.lsp.rpc.connect('127.0.0.1', 6005),
+            root_markers = {'project.godot', '.git'},
+        })
+
+        vim.lsp.enable('gdscript')
     '';
 
     diagnostic.settings = {

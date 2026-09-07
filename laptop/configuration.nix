@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -15,6 +16,17 @@
     ./hardware-configuration.nix
     ./../psql.nix
   ];
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    # Required so non-root users are allowed to use the above substituter/keys.
+    # Use @wheel for all sudo users, or list your username explicitly.
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.limine = {
@@ -103,7 +115,9 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    portalPackage = pkgs.xdg-desktop-portal-hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
   programs.steam.enable = true;
@@ -196,6 +210,10 @@
     serie
     openfortivpn
     maven
+    blender
+    kicad
+    blockbench
+    hyprpolkitagent
   ];
 
   programs.java.enable = true;

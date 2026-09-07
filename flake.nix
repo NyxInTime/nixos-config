@@ -25,6 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland";
 
   };
   outputs =
@@ -42,6 +43,7 @@
       # Configuration for laptop
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           ./laptop/configuration.nix
           home-manager.nixosModules.home-manager

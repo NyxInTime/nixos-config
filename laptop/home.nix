@@ -37,6 +37,10 @@
       signByDefault = true;
       key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
     };
+    extraConfig = {
+      pull.rebase = false;
+      push.autoSetupRemote = true;
+    };
   };
 
   programs.bash = {
