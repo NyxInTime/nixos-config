@@ -18,8 +18,8 @@
     enable = true;
     settings = {
       user = {
-        name = "Nic.In.Time";
-        email = "nicintime9@gmail.com";
+        name = "NyxInTime";
+        email = "nyx@nicintime.ca";
       };
       init.defaultBranch = "main";
     };

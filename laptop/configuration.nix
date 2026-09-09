@@ -54,6 +54,11 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.kernelModules = [
+    "ntsync"
+    "uinput"
+  ];
+
   networking.hostName = "nixos"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
@@ -97,8 +102,6 @@
     };
   };
 
-  boot.kernelModules = [ "uinput" ];
-
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
@@ -114,7 +117,7 @@
 
   programs.hyprland = {
     enable = true;
-    xwayland.enable = true;
+    #xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage =
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
@@ -214,6 +217,7 @@
     kicad
     blockbench
     hyprpolkitagent
+    vencord
   ];
 
   programs.java.enable = true;
@@ -254,7 +258,10 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    8000
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

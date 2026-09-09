@@ -27,7 +27,7 @@
     enable = true;
     settings = {
       user = {
-        name = "Nyx.In.Time";
+        name = "NyxInTime";
         email = "nyx@nicintime.ca";
       };
       init.defaultBranch = "main";
@@ -125,6 +125,8 @@
       };
     };
   };
+
+  programs.vesktop.enable = true;
 
   #xdg.userDirs = {
   #enable = true;
