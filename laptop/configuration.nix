@@ -58,6 +58,7 @@
     "ntsync"
     "uinput"
   ];
+  virtualisation.vmware.host.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
 
