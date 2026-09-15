@@ -11,7 +11,6 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    qylock.url = "github:Darkkal44/qylock";
     sops-nix.url = "github:Mic92/sops-nix";
 
     umbriel.url = "git+https://github.com/noctalia-dev/umbriel";
@@ -26,6 +25,7 @@
     };
     hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland";
+    reaper.url = "github:9Prestidigitator/reaper-flake";
 
   };
   outputs =
@@ -34,9 +34,9 @@
       nixpkgs,
       home-manager,
       aagl,
-      qylock,
       nixvim,
       noctalia-greeter,
+      reaper,
       ...
     }@inputs:
     {

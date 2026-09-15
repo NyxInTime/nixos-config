@@ -134,11 +134,13 @@
         vim.lsp.enable('gdscript')
     '';
 
-    diagnostic.settings = {
-      virtual_lines = {
-        current_line = true;
+    diagnostic = {
+      settings = {
+        virtual_lines = {
+          current_line = true;
+        };
+        update_in_insert = false;
       };
-      update_in_insert = false;
     };
 
     nixpkgs.config = {
