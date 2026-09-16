@@ -101,9 +101,24 @@
         "Mod+Return" = "spawn:kitty";
         "Mod+Q" = "window-close";
         "Mod" = "spawn:noctalia msg panel-toggle launcher";
+        "Mod+WheelUp" = "window-focus-left";
+        "Mod+WheelDown" = "window-focus-right";
+        "Mod+Shift+WheelUp" = "window-focus-or-workspace-up";
+        "Mod+Shift+WheelDown" = "window-focus-or-workspace-down";
+        "Mod+F" = "window-cycle-width";
+        "Mod+MouseForward" = "spawn:firefox";
+        "Mod+MouseBack" = "spawn:kitty";
+        "Mod+Print" = "spawn:noctalia msg screenshot-region";
       };
       layout = {
         mode = "scrolling";
+        width_presets = [
+          0.333
+          0.5
+          0.667
+          0.9
+          1
+        ];
       };
 
     };
