@@ -236,6 +236,7 @@
     hyprpolkitagent
     vencord
     android-studio
+    git-graph
   ];
 
   programs.java.enable = true;
