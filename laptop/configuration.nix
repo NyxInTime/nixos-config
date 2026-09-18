@@ -142,6 +142,8 @@
 
   programs.nix-ld.enable = true;
 
+  programs.nuclear.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -233,6 +235,7 @@
     blockbench
     hyprpolkitagent
     vencord
+    android-studio
   ];
 
   programs.java.enable = true;
