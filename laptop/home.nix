@@ -32,15 +32,13 @@
         email = "nyx@nicintime.ca";
       };
       init.defaultBranch = "main";
+      pull.rebase = false;
+      push.autoSetupRemote = true;
     };
     signing = {
       format = "ssh";
       signByDefault = true;
       key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-    };
-    extraConfig = {
-      pull.rebase = false;
-      push.autoSetupRemote = true;
     };
   };
 
@@ -55,6 +53,7 @@
       dawson-vpn = "sudo openfortivpn -c ~/.config/nixos/vpn-config.txt --saml-login";
       run-html = "xdg-open";
       html-server = "python3 -m http.server";
+      nuclear-player = "playerctl --player=$(playerctl --list-all | grep org.webkit.app)";
     };
   };
 
