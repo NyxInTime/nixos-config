@@ -37,6 +37,7 @@
     enable = true;
     shellAliases = {
       rebuild = "tmux new-session -s rebuild 'sudo nixos-rebuild switch --flake /home/nyx/.config/nixos/; bash'";
+      reattach = "tmux attach -t rebuild";
     };
   };
 }
