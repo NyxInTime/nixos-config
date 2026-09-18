@@ -22,6 +22,8 @@
         email = "nyx@nicintime.ca";
       };
       init.defaultBranch = "main";
+      pull.rebase = true;
+      push.autoSetupRemote = true;
     };
     signing = {
       format = "ssh";

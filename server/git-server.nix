@@ -34,7 +34,7 @@ let
       if [ ! -d "$full_path" ]; then
         # --shared=group makes the repo group-readable/writable and sets
         # core.sharedRepository=group so future pushes keep those perms
-        ${pkgs.git}/bin/git init --quiet --bare --initial-branch=main--shared=group "$full_path" >&2
+        ${pkgs.git}/bin/git init --quiet --bare --initial-branch=main --shared=group "$full_path" >&2
         echo "Created new repository: $repo" >&2
       fi
     fi
