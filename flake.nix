@@ -24,7 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland";
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     reaper.url = "github:9Prestidigitator/reaper-flake";
     #nuclear.url = "github:NyxInTime/nuclear-flake";
     sizeof.url = "github:NyxInTime/sizeof";
