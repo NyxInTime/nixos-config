@@ -14,6 +14,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./git-server.nix
+    ./docker-compose.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -148,6 +149,14 @@
 
   services.navidrome = {
     enable = true;
+    openFirewall = true;
+    settings = {
+      MusicFolder = "/var/Music/";
+    };
+  };
+
+  systemd.services.navidrome.serviceConfig = {
+    ReadOnlyPaths = [ "/var/Music/" ];
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -232,6 +241,7 @@
     postfix
     rustup
     gcc
+    podman
   ];
   nix.settings.experimental-features = [
     "nix-command"

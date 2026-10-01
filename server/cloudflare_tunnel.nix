@@ -51,6 +51,7 @@
             };
             service = "http://127.0.0.1:8000";
           };
+          "navi.nicintime.ca" = "http://localhost:4533";
 
         };
         default = "http_status:404";
