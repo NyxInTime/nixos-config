@@ -550,20 +550,6 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1789426278,
-        "narHash": "sha256-LMzzTWExGdJ1S8U3IP5egkZEtyMswAwYowTAxIlkEZs=",
-        "rev": "efe6f071ede9d21c37462d2d6682d5e670099684",
-        "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1074086.efe6f071ede9/nixexprs.tar.zst"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-unstable",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_6": {
-      "locked": {
         "lastModified": 1789344334,
         "narHash": "sha256-vdhpDJ3Lr24lkZ+fDCjmBRRtw9/vcSzkqGJOJyF5h2U=",
         "owner": "nixos",
@@ -574,6 +560,22 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1789921291,
+        "narHash": "sha256-Ft/BRnIqw1MywFoXydKobjjWmDFgDdYtSpJliE8+yUw=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "44a91898084f46797b5fac650c7e8c9ac38c43d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -680,24 +682,6 @@
         "type": "github"
       }
     },
-    "nuclear": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_5"
-      },
-      "locked": {
-        "lastModified": 1789613708,
-        "narHash": "sha256-bbnJLkhmf+O+gXrC+wLyyMpp+iTXrzwi824kPOsWS84=",
-        "owner": "NyxInTime",
-        "repo": "nuclear-flake",
-        "rev": "4af47a83c2e3d3826cc69f9bc609266a6f815a01",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NyxInTime",
-        "repo": "nuclear-flake",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -723,7 +707,7 @@
     "reaper": {
       "inputs": {
         "flake-parts": "flake-parts_2",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1789426361,
@@ -749,8 +733,8 @@
         "nixvim": "nixvim",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
-        "nuclear": "nuclear",
         "reaper": "reaper",
+        "sizeof": "sizeof",
         "sops-nix": "sops-nix",
         "umbriel": "umbriel",
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel_2"
@@ -774,6 +758,24 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sizeof": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1790114115,
+        "narHash": "sha256-Pp9rTBDvi3o3lbh8ILzvoG+4UB7y7+wKImdMoZFWSSk=",
+        "owner": "NyxInTime",
+        "repo": "sizeof",
+        "rev": "7ddeed9c20454391979bc58b3cc5dbfbce14ef73",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NyxInTime",
+        "repo": "sizeof",
         "type": "github"
       }
     },

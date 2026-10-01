@@ -142,7 +142,9 @@
 
   programs.nix-ld.enable = true;
 
-  programs.nuclear.enable = true;
+  #programs.nuclear.enable = true;
+
+  programs.sizeof.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -237,6 +239,8 @@
     vencord
     android-studio
     git-graph
+    clang
+    clang-tools
   ];
 
   programs.java.enable = true;

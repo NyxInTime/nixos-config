@@ -26,7 +26,8 @@
     hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland";
     reaper.url = "github:9Prestidigitator/reaper-flake";
-    nuclear.url = "github:NyxInTime/nuclear-flake";
+    #nuclear.url = "github:NyxInTime/nuclear-flake";
+    sizeof.url = "github:NyxInTime/sizeof";
 
   };
   outputs =
@@ -38,7 +39,8 @@
       nixvim,
       noctalia-greeter,
       reaper,
-      nuclear,
+      #nuclear,
+      sizeof,
       ...
     }@inputs:
     {
@@ -49,7 +51,8 @@
         modules = [
           ./laptop/configuration.nix
 
-          nuclear.nixosModules.default
+          #nuclear.nixosModules.default
+          sizeof.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager = {

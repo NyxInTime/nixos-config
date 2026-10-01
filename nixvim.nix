@@ -56,6 +56,7 @@
           };
           formatters_by_ft = {
             qml = [ "qmlformat" ];
+            cpp = [ "clang_format" ];
           };
         };
       };

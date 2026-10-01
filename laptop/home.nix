@@ -20,7 +20,7 @@
   imports = [
     ./../nixvim.nix
     inputs.umbriel.homeModules.default
-    inputs.noctalia.homeModules.default
+    #inputs.noctalia.homeModules.default
     inputs.reaper.homeModules.reaper
   ];
 
@@ -34,6 +34,8 @@
       init.defaultBranch = "main";
       pull.rebase = false;
       push.autoSetupRemote = true;
+      push.followTags = true;
+      merge.tool = "nvimdiff2";
     };
     signing = {
       format = "ssh";
@@ -44,6 +46,8 @@
 
   programs.bash = {
     enable = true;
+    historyFileSize = 100000;
+    historySize = 10000;
     shellAliases = {
       rebuild = "sudo nixos-rebuild switch --flake /home/nyx/.config/nixos/";
       update = "sudo nix flake update --flake /home/nyx/.config/nixos/";
@@ -123,23 +127,25 @@
     };
   };
 
-  programs.noctalia = {
-    enable = true;
+  /*
+    programs.noctalia = {
+      enable = true;
 
-    settings = {
-      # This may also be a string or path to a .toml file.
-      theme = {
-        mode = "dark";
-        source = "builtin";
-        builtin = "Catppuccin";
-      };
+      settings = {
+        # This may also be a string or path to a .toml file.
+        theme = {
+          mode = "dark";
+          source = "builtin";
+          builtin = "Catppuccin";
+        };
 
-      wallpaper = {
-        enabled = true;
-        default.path = "/home/nix/.config/wallpaper/wallpaper3/jpg";
+        wallpaper = {
+          enabled = true;
+          default.path = "/home/nix/.config/wallpaper/wallpaper3/jpg";
+        };
       };
     };
-  };
+  */
 
   programs.vesktop.enable = true;
 
