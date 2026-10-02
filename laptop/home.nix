@@ -127,25 +127,23 @@
     };
   };
 
-  /*
-    programs.noctalia = {
-      enable = true;
+  programs.noctalia = {
+    enable = true;
 
-      settings = {
-        # This may also be a string or path to a .toml file.
-        theme = {
-          mode = "dark";
-          source = "builtin";
-          builtin = "Catppuccin";
-        };
+    settings = {
+      # This may also be a string or path to a .toml file.
+      theme = {
+        mode = "dark";
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
 
-        wallpaper = {
-          enabled = true;
-          default.path = "/home/nix/.config/wallpaper/wallpaper3/jpg";
-        };
+      wallpaper = {
+        enabled = true;
+        default.path = "/home/nix/.config/wallpaper/wallpaper3/jpg";
       };
     };
-  */
+  };
 
   programs.vesktop.enable = true;
 

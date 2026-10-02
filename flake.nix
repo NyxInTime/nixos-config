@@ -17,7 +17,7 @@
     xdg-desktop-portal-umbriel.url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
     noctalia = {
       url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs"; # this line is optional, prevents downloading two versions of nixpkgs but disables cache
+      #inputs.nixpkgs.follows = "nixpkgs"; # this line is optional, prevents downloading two versions of nixpkgs but disables cache
     };
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
@@ -41,6 +41,7 @@
       aagl,
       nixvim,
       noctalia-greeter,
+      noctalia,
       reaper,
       #nuclear,
       sizeof,

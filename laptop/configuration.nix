@@ -49,6 +49,17 @@
     };
   };
 
+  fileSystems."/mnt" = {
+    device = "nyx@ssh.nicintime.ca:/home/nyx/Games";
+    fsType = "sshfs";
+    options = [
+      "nodev"
+      "noatime"
+      "allow_other"
+      "IdentityFile=/home/nyx/.ssh/id_ed25519"
+    ];
+  };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
