@@ -242,6 +242,8 @@
     clang
     clang-tools
     sshfs-fuse
+    fuse
+    hyprshutdown
   ];
 
   programs.java.enable = true;
@@ -282,10 +284,30 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    22
-    8000
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22
+      8000
+    ];
+    # Tailscale
+    # Always allow traffic from your Tailscale network
+    trustedInterfaces = [ config.services.tailscale.interfaceName ];
+    # Allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [ config.services.tailscale.port ];
+  };
+
+  services.tailscale.enable = true;
+  networking.nftables.enable = true;
+
+  systemd.services.tailscaled.serviceConfig.Environment = [
+    "TS_DEBUG_FIREWALL_MODE=nftables"
   ];
+
+  # 3. Optimization: Prevent systemd from waiting for network online
+  # (Optional but recommended for faster boot with VPNs)
+  systemd.network.wait-online.enable = false;
+  boot.initrd.systemd.network.wait-online.enable = false;
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
