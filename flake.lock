@@ -136,11 +136,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790819692,
-        "narHash": "sha256-rvubAPbh3QCliic3sAK+CXTrPCGgJstY52OTs/5H1J4=",
+        "lastModified": 1790972726,
+        "narHash": "sha256-TVgDIhNGx2bLl1fBOr13YOMJTiMKEoxpxT8leF7hh/8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c8ecc29e5175452bee4a2aa1ba2383856d795338",
+        "rev": "47c54aec43c13a728094881551db60b5cc4cc16e",
         "type": "github"
       },
       "original": {
@@ -226,11 +226,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1790864880,
-        "narHash": "sha256-AnbYT+0qgGmmO0rknwenH9jNeaWC3FPhuiiRFJjhgrQ=",
+        "lastModified": 1790956643,
+        "narHash": "sha256-QWs5eh6SUO2bWqlxTAPFopXpEpnp0DjYfyqNCEsGCuo=",
         "ref": "refs/heads/main",
-        "rev": "9f3facf61efeb3662f0610a648481f60d56c7e98",
-        "revCount": 7859,
+        "rev": "8e9a538fb08dafa094309d3025ac5ec48b9879fe",
+        "revCount": 7871,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
       },
@@ -628,11 +628,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1790541651,
-        "narHash": "sha256-/496IQz8qNWHHLnc3Zvr0l4uxJ34igNhJhn7ZKAefFk=",
+        "lastModified": 1790928658,
+        "narHash": "sha256-EeMn6SmrBe4gnxaMyb3NZYMXG8FPF9PY0OCcbPDFFNI=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "5980a626794486abad69fca7667f9c11dfbc3bd7",
+        "rev": "1cdfef1a6eb583d65b606b04fc97687491479d62",
         "type": "github"
       },
       "original": {
@@ -646,11 +646,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1790857470,
-        "narHash": "sha256-EalyF5nWDS6xui58LC131oez7gZWcaO6P5bClDCVD6U=",
+        "lastModified": 1790967847,
+        "narHash": "sha256-zjTq+MSL+B7GpRx/gEpj3y+OqonsdZBuA1OGrBQdlXw=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "30415127e6c864212c61804a531a018980718b1f",
+        "rev": "63685992f8cfef008de338ff769c8f44df3bcdaa",
         "type": "github"
       },
       "original": {
@@ -832,11 +832,11 @@
         "xdg-desktop-portal-umbriel": "xdg-desktop-portal-umbriel"
       },
       "locked": {
-        "lastModified": 1790826613,
-        "narHash": "sha256-A/DffDcKAaXq6+Jnnn4lvxqweN8YGZBXqIEikxyBArM=",
+        "lastModified": 1790953396,
+        "narHash": "sha256-wludujGFP4ATqcjNYhXBV5IusmE6cQ5YvpWT/bgtnTU=",
         "ref": "refs/heads/main",
-        "rev": "26cd1fcb5ad60228af87638651ee89d2d7b4854f",
-        "revCount": 1144,
+        "rev": "1265718192279ada0baee3cdc2498d08fa52bee6",
+        "revCount": 1152,
         "type": "git",
         "url": "https://github.com/noctalia-dev/umbriel"
       },
