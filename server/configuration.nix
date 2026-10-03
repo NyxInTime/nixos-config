@@ -254,6 +254,13 @@ in
 
   programs.nix-ld.enable = true;
 
+  # enabling steam to have binaries to run steamcmd
+  programs.steam = {
+    enable = true;
+
+    package = null;
+  };
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
