@@ -20,7 +20,7 @@
   imports = [
     ./../nixvim.nix
     inputs.umbriel.homeModules.default
-    #inputs.noctalia.homeModules.default
+    inputs.noctalia.homeModules.default
     inputs.reaper.homeModules.reaper
   ];
 
@@ -146,6 +146,8 @@
   };
 
   programs.vesktop.enable = true;
+
+  programs.reaper.activation.allowRunning = true;
 
   programs.reaper = {
     enable = true;
