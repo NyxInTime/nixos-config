@@ -90,6 +90,9 @@
       "Host *.nicintime.ca" = {
         ProxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
       };
+      "Host ssh-git.nicintime.ca" = {
+        ProxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+      };
 
     };
   };

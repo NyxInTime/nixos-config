@@ -55,6 +55,9 @@
           "git.nicintime.ca" = {
             service = "http://localhost:3000";
           };
+          "push.nicintime.ca" = {
+            service = "ssh://localhost:2222";
+          };
 
         };
         default = "http_status:404";

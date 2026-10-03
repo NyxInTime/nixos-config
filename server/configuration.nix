@@ -170,6 +170,12 @@ in
         # You need to specify this to remove the port from URLs in the web UI.
         ROOT_URL = "https://${srv.DOMAIN}/";
         HTTP_PORT = 3000;
+
+        # Since using cloudflare, cant have everything on 1 domain, moving ssh to other port
+        START_SSH_SERVER = true;
+        SSH_PORT = 2222;
+        SSH_LISTEN_PORT = 2222;
+        SSH_DOMAIN = "push.nicintime.ca";
       };
       # You can temporarily allow registration to create an admin user.
       service.DISABLE_REGISTRATION = true;
