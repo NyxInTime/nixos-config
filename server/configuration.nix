@@ -259,6 +259,7 @@ in
     enable = true;
 
   };
+  hardware.graphics.enable32Bit = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
