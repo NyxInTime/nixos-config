@@ -178,6 +178,8 @@ in
         ENABLED = true;
         DEFAULT_ACTIONS_URL = "github";
       };
+
+      repository.ENABLE_PUSH_CREATE_USER = true;
     };
   };
 
