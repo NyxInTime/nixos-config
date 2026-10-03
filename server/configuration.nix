@@ -315,6 +315,7 @@ in
     gcc
     podman
     steamcmd
+    steam-tui
   ];
   nix.settings.experimental-features = [
     "nix-command"
