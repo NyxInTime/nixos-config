@@ -258,7 +258,6 @@ in
   programs.steam = {
     enable = true;
 
-    package = null;
   };
 
   # Configure keymap in X11
