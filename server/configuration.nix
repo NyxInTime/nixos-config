@@ -231,6 +231,16 @@ in
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
 
+  # -- NFS Server --
+  services.nfs.server = {
+    enable = true;
+    exports = ''
+      /home/nyx/.local/share/Steam 100.80.234.71(rw,sync,no_subtree_check,all_squash,anonuid=1000,anongid=100)
+    '';
+  };
+
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 2049 ];
+
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 

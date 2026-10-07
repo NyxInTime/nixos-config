@@ -310,6 +310,21 @@
   # (Optional but recommended for faster boot with VPNs)
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
+
+  boot.supportedFilesystems = [ "nfs" ];
+
+  fileSystems."mnt/steam-games" = {
+    device = "100.86.138.82:/home/nyx/.local/share/Steam";
+    fsType = "nfs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+      "x-systemd.idle-timeout=600"
+      "noatime"
+      "_netdev"
+    ];
+  };
+
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
