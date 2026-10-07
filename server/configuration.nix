@@ -125,7 +125,7 @@ in
     };
     virtualHosts.${cfg.settings.server.DOMAIN} = {
       forceSSL = true;
-      enableACME = true;
+      #enableACME = true;
       extraConfig = ''
         client_max_body_size 512M;
       '';
