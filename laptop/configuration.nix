@@ -242,9 +242,11 @@
     clang
     clang-tools
     sshfs-fuse
-    fuse
     hyprshutdown
   ];
+
+  programs.fuse.enable = true;
+  programs.fuse.userAllowOther = true;
 
   programs.java.enable = true;
   #onnly using this because nvim transparent doesnt work
