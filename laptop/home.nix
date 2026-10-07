@@ -58,6 +58,7 @@
       run-html = "xdg-open";
       html-server = "python3 -m http.server";
       nuclear-player = "playerctl --player=$(playerctl --list-all | grep org.webkit.app)";
+      consume = "nix-collect-garbage";
     };
   };
 
