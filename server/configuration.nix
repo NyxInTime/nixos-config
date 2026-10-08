@@ -125,7 +125,7 @@ in
     };
     virtualHosts.${cfg.settings.server.DOMAIN} = {
       forceSSL = true;
-      #enableACME = true;
+      enableACME = true;
       extraConfig = ''
         client_max_body_size 512M;
       '';
@@ -215,7 +215,10 @@ in
     ];
     enable = true;
     # Always allow traffic from your Tailscale network
-    trustedInterfaces = [ config.services.tailscale.interfaceName ];
+    trustedInterfaces = [
+      config.services.tailscale.interfaceName
+      "tailscale0"
+    ];
     # Allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
@@ -234,12 +237,11 @@ in
   # -- NFS Server --
   services.nfs.server = {
     enable = true;
+    hostName = "100.86.138.82";
     exports = ''
       /home/nyx/.local/share/Steam 100.80.234.71(rw,sync,no_subtree_check,all_squash,anonuid=1000,anongid=100)
     '';
   };
-
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 2049 ];
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
