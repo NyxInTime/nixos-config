@@ -313,15 +313,21 @@
 
   boot.supportedFilesystems = [ "nfs" ];
 
-  fileSystems."mnt/steam-games" = {
+  fileSystems."/mnt/steam-games" = {
     device = "100.86.138.82:/home/nyx/.local/share/Steam";
     fsType = "nfs";
     options = [
       "x-systemd.automount"
       "noauto"
       "x-systemd.idle-timeout=600"
+      "x-systemd.device-timeout=10"
+      "x-systemd.mount-timeout=10"
       "noatime"
+      "nofail"
       "_netdev"
+      "local_lock=all"
+      "ac"
+      "actimeo=60"
     ];
   };
 
