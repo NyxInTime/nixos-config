@@ -58,7 +58,9 @@
       # Go language server
       gopls.enable = true;
       # TOML language server
-      taplo.enable = true;
+      taplo = {
+        enable = true;
+      };
       # JSON language server (included in vscode-langservers-extracted, same as html/cssls)
       jsonls.enable = true;
       # YAML language server

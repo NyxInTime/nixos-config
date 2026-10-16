@@ -313,7 +313,7 @@
 
   boot.supportedFilesystems = [ "nfs" ];
 
-  fileSystems."/mnt/steam-games" = {
+  fileSystems."/steam-games" = {
     device = "100.86.138.82:/home/nyx/.local/share/Steam";
     fsType = "nfs";
     options = [
