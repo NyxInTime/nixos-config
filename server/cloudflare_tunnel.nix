@@ -35,14 +35,14 @@
               noTLSVerify = true;
               httpHostHeader = "nicintime.ca";
             };
-            service = "https://127.0.0.1:8080";
+            service = "http://127.0.0.1:8080";
           };
           "clone.nicintime.ca" = {
             originRequest = {
               noTLSVerify = true;
               httpHostHeader = "clone.nicintime.ca";
             };
-            service = "https://127.0.0.1:8080";
+            service = "http://127.0.0.1:8080";
           };
           "upload.nicintime.ca" = {
             originRequest = {
@@ -53,7 +53,10 @@
           };
           "navi.nicintime.ca" = "http://localhost:4533";
           "git.nicintime.ca" = {
-            service = "http://localhost:3000";
+            originRequest = {
+              httpHostHeader = "git.nicintime.ca";
+            };
+            service = "http://localhost:3001";
           };
           "push.nicintime.ca" = {
             service = "ssh://localhost:2222";

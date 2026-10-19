@@ -22,8 +22,9 @@ in
   ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  #boot.loader.limine.enable = true;
+  #boot.loader.systemd-boot.enable = true;
+  boot.loader.limine.enable = true;
+  boot.loader.limine.maxGenerations = 7;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
@@ -54,13 +55,11 @@ in
 
     enable = true;
     virtualHosts."nicintime.ca" = {
-      onlySSL = true;
-      enableACME = true;
       listen = [
         {
           addr = "127.0.0.1";
           port = 8080;
-          ssl = true;
+          ssl = false;
         }
       ];
 
@@ -86,13 +85,11 @@ in
       };
     };
     virtualHosts."clone.nicintime.ca" = {
-      onlySSL = true;
-      enableACME = true;
       listen = [
         {
           addr = "127.0.0.1";
           port = 8080;
-          ssl = true;
+          ssl = false;
         }
       ];
 
@@ -124,18 +121,18 @@ in
 
     };
     virtualHosts.${cfg.settings.server.DOMAIN} = {
-      forceSSL = true;
-      enableACME = true;
+      listen = [
+        {
+          addr = "127.0.0.1";
+          port = 3001;
+          ssl = false;
+        }
+      ];
       extraConfig = ''
         client_max_body_size 512M;
       '';
       locations."/".proxyPass = "http://localhost:${toString srv.HTTP_PORT}";
     };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "nyx@nicintime.ca";
   };
 
   services.cgit.whatever = {
@@ -173,7 +170,7 @@ in
 
         # Since using cloudflare, cant have everything on 1 domain, moving ssh to other port
         START_SSH_SERVER = true;
-        SSH_PORT = 2222;
+        SSH_PORT = 22;
         SSH_LISTEN_PORT = 2222;
         SSH_DOMAIN = "push.nicintime.ca";
       };
