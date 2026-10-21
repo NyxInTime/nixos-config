@@ -156,5 +156,27 @@
         ];
       };
 
-    };
+    
+
+	nixosConfigurations.hecate = nixpkgs.lib.nixosSystem {
+system = "x86_64-linux";
+specialArgs = { inherit inputs; };
+modules = [
+./hecate/configuration.nix
+home-manager.nixosModules.home-manager
+{
+home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [
+                inputs.nixvim.homeModules.nixvim
+              ];
+
+              users.nyx = import ./server/home.nix;
+            };
+	    }
+
+];
+};
+};
 }
