@@ -31,6 +31,7 @@
     reaper.url = "github:9Prestidigitator/reaper-flake";
     #nuclear.url = "github:NyxInTime/nuclear-flake";
     sizeof.url = "github:NyxInTime/sizeof";
+    maven-init.url = "github:NyxInTime/maven-init";
 
   };
   outputs =
@@ -45,6 +46,7 @@
       reaper,
       #nuclear,
       sizeof,
+      maven-init,
       ...
     }@inputs:
     {
@@ -58,6 +60,7 @@
           #nuclear.nixosModules.default
           sizeof.nixosModules.default
           home-manager.nixosModules.home-manager
+          maven-init.nixosModules.default
           {
             home-manager = {
               useGlobalPkgs = true;

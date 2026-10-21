@@ -146,6 +146,8 @@
 
   programs.sizeof.enable = true;
 
+  programs.maven-init.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -243,6 +245,7 @@
     clang-tools
     sshfs-fuse
     hyprshutdown
+    deadlock-mod-manager
   ];
 
   programs.fuse.enable = true;
