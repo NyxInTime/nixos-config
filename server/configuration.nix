@@ -19,6 +19,7 @@ in
     ./hardware-configuration.nix
     ./git-server.nix
     ./docker-compose.nix
+    ./lan.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -200,6 +201,8 @@ in
 
   # 1. Enable the service and the firewall
   services.tailscale.enable = true;
+  #tailscale lan fix
+  services.tailscale.useRoutingFeatures = "server";
   networking.nftables.enable = true;
   networking.firewall = {
     # Not for tailscale
@@ -215,9 +218,19 @@ in
     trustedInterfaces = [
       config.services.tailscale.interfaceName
       "tailscale0"
+      # network forwarding (lan)
+      "eno1"
     ];
     # Allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [
+      config.services.tailscale.port
+      # network forwarding (lan)
+      67
+      68
+    ];
+
+    #lan fix
+    checkReversePath = "loose";
   };
 
   # 2. Force tailscaled to use nftables (Critical for clean nftables-only systems)
@@ -241,7 +254,9 @@ in
   };
 
   # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "America/Montreal";
@@ -325,6 +340,7 @@ in
     podman
     steamcmd
     steam-tui
+    dnsmasq
   ];
   nix.settings.experimental-features = [
     "nix-command"
