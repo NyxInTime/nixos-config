@@ -58,7 +58,8 @@
     "ntsync"
     "uinput"
   ];
-  virtualisation.vmware.host.enable = true;
+  # disabled due to new kernel update.
+  # virtualisation.vmware.host.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
 

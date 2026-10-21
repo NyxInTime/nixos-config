@@ -1,5 +1,18 @@
 {
   description = "Flake incorporating all systems";
+
+  nixConfig = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    # Required so non-root users are allowed to use the above substituter/keys.
+    # Use @wheel for all sudo users, or list your username explicitly.
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
+  };
+
   inputs = {
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,8 +38,7 @@
     };
     hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hyprwm/Hyprland";
     };
     reaper.url = "github:9Prestidigitator/reaper-flake";
     #nuclear.url = "github:NyxInTime/nuclear-flake";
@@ -156,16 +168,14 @@
         ];
       };
 
-    
-
-	nixosConfigurations.hecate = nixpkgs.lib.nixosSystem {
-system = "x86_64-linux";
-specialArgs = { inherit inputs; };
-modules = [
-./hecate/configuration.nix
-home-manager.nixosModules.home-manager
-{
-home-manager = {
+      nixosConfigurations.hecate = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hecate/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
               sharedModules = [
@@ -174,9 +184,9 @@ home-manager = {
 
               users.nyx = import ./server/home.nix;
             };
-	    }
+          }
 
-];
-};
-};
+        ];
+      };
+    };
 }
