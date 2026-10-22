@@ -247,6 +247,7 @@
     sshfs-fuse
     hyprshutdown
     deadlock-mod-manager
+    inputs.amane.packages.x86_64-linux.default
   ];
 
   programs.fuse.enable = true;

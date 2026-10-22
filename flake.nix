@@ -2,9 +2,21 @@
   description = "Flake incorporating all systems";
 
   nixConfig = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+      "https://umbriel.cachix.org"
+      "https://noctalia.cachix.org"
+    ];
+    extra-trusted-substituters = [
+      "https://hyprland.cachix.org"
+      "https://umbriel.cachix.org"
+      "https://noctalia.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
     # Required so non-root users are allowed to use the above substituter/keys.
     # Use @wheel for all sudo users, or list your username explicitly.
     trusted-users = [
@@ -44,6 +56,8 @@
     #nuclear.url = "github:NyxInTime/nuclear-flake";
     sizeof.url = "github:NyxInTime/sizeof";
     maven-init.url = "github:NyxInTime/maven-init";
+
+    amane.url = "github:MystiaFin/amane";
 
   };
   outputs =
