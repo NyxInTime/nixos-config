@@ -41,4 +41,21 @@
       update = "sudo nix flake update --flake /home/nyx/.config/nixos/";
     };
   };
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings = {
+
+      "Host *.nicintime.ca" = {
+        ProxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+        AddressFamily = "inet";
+      };
+      "Host ssh-git.nicintime.ca" = {
+        ProxyCommand = "${pkgs.cloudflared}/bin/cloudflared access ssh --hostname %h";
+        AddressFamily = "inet";
+      };
+
+    };
+  };
 }
