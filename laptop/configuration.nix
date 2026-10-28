@@ -128,6 +128,12 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  # testing out ai coding tools, probably good for future employment
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+  };
+
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
@@ -248,7 +254,17 @@
     hyprshutdown
     deadlock-mod-manager
     inputs.amane.packages.x86_64-linux.default
+    ollama
+    (aider-chat.override {
+      python3Packages = pkgs.python3Packages.overrideScope (
+        pyFinal: pyPrev: {
+          posthog = null; # Removes the broken package entirely
+        }
+      );
+    })
+    tmux
   ];
+  nixpkgs.config.problems.handlers.posthog.broken = "warn";
 
   programs.fuse.enable = true;
   programs.fuse.userAllowOther = true;

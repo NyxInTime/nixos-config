@@ -2,6 +2,7 @@
 {
   opts = {
     number = true;
+    relativenumber = true;
 
     termguicolors = true;
 

@@ -57,7 +57,7 @@
     sizeof.url = "github:NyxInTime/sizeof";
     maven-init.url = "github:NyxInTime/maven-init";
 
-    amane.url = "github:MystiaFin/amane";
+    amane.url = "github:NyxInTime/amane";
 
   };
   outputs =
