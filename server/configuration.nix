@@ -174,6 +174,7 @@ in
         SSH_PORT = 22;
         SSH_LISTEN_PORT = 2222;
         SSH_DOMAIN = "push.nicintime.ca";
+        LANDING_PAGE = "explore";
       };
       # You can temporarily allow registration to create an admin user.
       service.DISABLE_REGISTRATION = true;
