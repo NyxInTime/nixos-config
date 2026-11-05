@@ -255,14 +255,17 @@
     deadlock-mod-manager
     inputs.amane.packages.x86_64-linux.default
     ollama
-    (aider-chat.override {
-      python3Packages = pkgs.python3Packages.overrideScope (
-        pyFinal: pyPrev: {
-          posthog = null; # Removes the broken package entirely
-        }
-      );
-    })
+    /*
+      (aider-chat.override {
+        python3Packages = pkgs.python3Packages.overrideScope (
+          pyFinal: pyPrev: {
+            posthog = null; # Removes the broken package entirely
+          }
+        );
+      })
+    */
     tmux
+    cava
   ];
   nixpkgs.config.problems.handlers.posthog.broken = "warn";
 
