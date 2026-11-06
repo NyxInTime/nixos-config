@@ -77,11 +77,11 @@
     }@inputs:
     {
       # Configuration for laptop
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nyx = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./laptop/configuration.nix
+          ./nyx/configuration.nix
 
           #nuclear.nixosModules.default
           sizeof.nixosModules.default
@@ -98,7 +98,7 @@
                 inputs.nixvim.homeModules.nixvim
               ];
 
-              users.nyx = import ./laptop/home.nix;
+              users.nyx = import ./nyx/home.nix;
 
             };
           }
@@ -196,7 +196,7 @@
                 inputs.nixvim.homeModules.nixvim
               ];
 
-              users.nyx = import ./server/home.nix;
+              users.nyx = import ./hecate/home.nix;
             };
           }
 

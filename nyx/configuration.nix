@@ -61,7 +61,7 @@
   # disabled due to new kernel update.
   # virtualisation.vmware.host.enable = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nyx"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;

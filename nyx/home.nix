@@ -151,8 +151,6 @@
     };
   };
 
-  programs.vesktop.enable = true;
-
   programs.reaper.activation.allowRunning = true;
 
   programs.reaper = {
