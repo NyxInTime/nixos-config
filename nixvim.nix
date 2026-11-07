@@ -113,6 +113,32 @@
       };
       wakatime.enable = true;
       godot.enable = true;
+
+      statuscol = {
+        enable = true;
+        settings = {
+          # Define the exact elements to show in the column
+          relculright = true;
+          segments = [
+            {
+              # Sign column (git signs, diagnostics, etc.)
+              text = [ "%s" ];
+              click = "v:lua.ScSa";
+            }
+            {
+              # Absolute line numbers
+              text = [ "%{%v:lua.string.format('%2d',v:lnum)%} " ];
+              click = "v:lua.ScLa";
+            }
+            {
+              # Relative line numbers
+              text = [ "%{%v:relnum%} " ];
+              click = "v:lua.ScLa";
+            }
+          ];
+        };
+
+      };
     };
     extraPlugins = [
       (pkgs.vimUtils.buildVimPlugin {

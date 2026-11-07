@@ -1,10 +1,12 @@
 { self, pkgs, ... }:
 {
   opts = {
+
     number = true;
     relativenumber = true;
-
     termguicolors = true;
+
+    scrolloff = 7;
 
     clipboard = {
       register = "unnamedplus";
