@@ -15,10 +15,10 @@
     nodejs
     pkgs.devenv
     inputs.hytale-launcher.packages.${pkgs.system}.default
+    inputs.nixvim-config.packages.${pkgs.system}.default
   ];
 
   imports = [
-    ./../nixvim.nix
     inputs.umbriel.homeModules.default
     inputs.noctalia.homeModules.default
     inputs.reaper.homeModules.reaper

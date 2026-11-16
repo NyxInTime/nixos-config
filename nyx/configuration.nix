@@ -17,9 +17,18 @@
     ./../psql.nix
   ];
   nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    substituters = [
+      "https://hyprland.cachix.org"
+      "https://nyxintimenixvim.cachix.org"
+    ];
+    trusted-substituters = [
+      "https://hyprland.cachix.org"
+      "https://nyxintimenixvim.cachix.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nyxintimenixvim.cachix.org-1:mQD2kN5KuO9yCNxDaoGCKtpm8MJiZGzdnRHwYSYNW3Q="
+    ];
     # Required so non-root users are allowed to use the above substituter/keys.
     # Use @wheel for all sudo users, or list your username explicitly.
     trusted-users = [
@@ -27,6 +36,20 @@
       "@wheel"
     ];
   };
+
+  # Nvidia fix
+  nixpkgs.overlays = [
+    (final: prev: {
+      terracotta = prev.terracotta.overrideAttrs (oldAttrs: {
+        nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [
+          final.pkg-config
+        ];
+        buildInputs = (oldAttrs.buildInputs or [ ]) ++ [
+          final.zstd
+        ];
+      });
+    })
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.limine = {
@@ -104,7 +127,21 @@
     };
   };
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Privacy = "device";
+        JustWorksRepairing = "always";
+        Class = "0x000100";
+
+        FastConnectable = true;
+      };
+    };
+  };
+
+  hardware.xpadneo.enable = true;
 
   services.power-profiles-daemon.enable = true;
 
@@ -252,9 +289,11 @@
     clang-tools
     sshfs-fuse
     hyprshutdown
-    deadlock-mod-manager
+    # deadlock-mod-manager
     inputs.amane.packages.x86_64-linux.default
     ollama
+    inputs.eight-D.packages.${pkgs.stdenv.hostPlatform.system}.default
+    easyeffects
     /*
       (aider-chat.override {
         python3Packages = pkgs.python3Packages.overrideScope (
@@ -266,6 +305,7 @@
     */
     tmux
     cava
+    usbutils
   ];
   nixpkgs.config.problems.handlers.posthog.broken = "warn";
 

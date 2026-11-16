@@ -6,16 +6,19 @@
       "https://hyprland.cachix.org"
       "https://umbriel.cachix.org"
       "https://noctalia.cachix.org"
+      "https://nyxintimenixvim.cachix.org"
     ];
     extra-trusted-substituters = [
       "https://hyprland.cachix.org"
       "https://umbriel.cachix.org"
       "https://noctalia.cachix.org"
+      "https://nyxintimenixvim.cachix.org"
     ];
     extra-trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "nyxintimenixvim.cachix.org-1:mQD2kN5KuO9yCNxDaoGCKtpm8MJiZGzdnRHwYSYNW3Q="
     ];
     # Required so non-root users are allowed to use the above substituter/keys.
     # Use @wheel for all sudo users, or list your username explicitly.
@@ -33,10 +36,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-    };
     sops-nix.url = "github:Mic92/sops-nix";
+
+    nixvim-config.url = "github:NyxInTime/nixvim-config";
 
     umbriel.url = "git+https://github.com/noctalia-dev/umbriel";
     xdg-desktop-portal-umbriel.url = "github:noctalia-dev/xdg-desktop-portal-umbriel";
@@ -58,6 +60,7 @@
     maven-init.url = "github:NyxInTime/maven-init";
 
     amane.url = "github:NyxInTime/amane";
+    eight-D.url = "github:NyxInTime/8DMusic_flake";
 
   };
   outputs =
@@ -66,13 +69,13 @@
       nixpkgs,
       home-manager,
       aagl,
-      nixvim,
       noctalia-greeter,
       noctalia,
       reaper,
       #nuclear,
       sizeof,
       maven-init,
+      nixvim-config,
       ...
     }@inputs:
     {
@@ -94,10 +97,6 @@
 
               extraSpecialArgs = { inherit inputs; };
 
-              sharedModules = [
-                inputs.nixvim.homeModules.nixvim
-              ];
-
               users.nyx = import ./nyx/home.nix;
 
             };
@@ -118,11 +117,10 @@
           }
           {
             imports = [ noctalia-greeter.nixosModules.default ];
-            programs.noctalia-greeter = {
+            services.displayManager.noctalia-greeter = {
               enable = true;
 
               # Optional configuration
-              greeter-args = "";
               # Full declarative greeter.toml (overwritten on each activation).
               # See examples/greeter.toml for every key (appearance.palette, output, …).
               settings = {
@@ -172,9 +170,6 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [
-                inputs.nixvim.homeModules.nixvim
-              ];
 
               users.nyx = import ./server/home.nix;
             };
@@ -192,9 +187,6 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [
-                inputs.nixvim.homeModules.nixvim
-              ];
 
               users.nyx = import ./hecate/home.nix;
             };

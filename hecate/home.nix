@@ -10,8 +10,8 @@
   home.homeDirectory = "/home/nyx";
   home.stateVersion = "26.05";
 
-  imports = [
-    ./../nixvim.nix
+  home.pkgs = with pkgs; [
+    inputs.nixvim-config.packages.${pkgs.system}.default
   ];
 
   programs.git = {
