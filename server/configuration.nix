@@ -25,7 +25,7 @@ in
   # Use the systemd-boot EFI boot loader.
   #boot.loader.systemd-boot.enable = true;
   boot.loader.limine.enable = true;
-  boot.loader.limine.maxGenerations = 7;
+  boot.loader.limine.maxGenerations = 5;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
