@@ -171,6 +171,8 @@
               useGlobalPkgs = true;
               useUserPackages = true;
 
+              extraSpecialArgs = { inherit inputs; };
+
               users.nyx = import ./server/home.nix;
             };
           }
@@ -187,6 +189,8 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
+
+              extraSpecialArgs = { inherit inputs; };
 
               users.nyx = import ./hecate/home.nix;
             };
