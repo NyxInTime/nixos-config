@@ -59,6 +59,7 @@
       html-server = "python3 -m http.server";
       nuclear-player = "playerctl --player=$(playerctl --list-all | grep org.webkit.app)";
       consume = "sudo nix-collect-garbage && nix-collect-garbage";
+      nixvim-update = "sudo nix flake update nixvim-config";
     };
   };
 

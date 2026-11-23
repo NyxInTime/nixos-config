@@ -61,6 +61,7 @@
 
     amane.url = "github:NyxInTime/amane";
     eight-D.url = "github:NyxInTime/8DMusic_flake";
+    luciole.url = "github:noctalia-dev/luciole";
 
   };
   outputs =
@@ -76,6 +77,7 @@
       sizeof,
       maven-init,
       nixvim-config,
+      luciole,
       ...
     }@inputs:
     {

@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 {
   config,
   lib,
@@ -15,6 +11,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./../psql.nix
+    inputs.luciole.nixosModules.default
   ];
   nix.settings = {
     substituters = [
@@ -71,6 +68,9 @@
       };
     };
   };
+
+  programs.luciole.enable = true;
+  services.gvfs.enable = true;
 
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -160,15 +160,19 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
-    open = false; # Set to true if using modern Turing+ open-source kernel modules
+    open = true; # Set to true if using modern Turing+ open-source kernel modules
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # testing out ai coding tools, probably good for future employment
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-cuda;
+  # making sure that the laptop doesnt wake up in the case for any reason
+  systemd.services.disable-acpi-wake = {
+    description = "Disable AC adapter and USB ACPI wake triggers";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'for dev in ADP1 ACAD AC0 XHC XHC0 XHC1; do grep -q \"^$dev.*enabled\" /proc/acpi/wakeup && echo $dev > /proc/acpi/wakeup; done'";
+    };
   };
 
   # Enable the X11 windowing system.
@@ -291,18 +295,8 @@
     hyprshutdown
     # deadlock-mod-manager
     inputs.amane.packages.x86_64-linux.default
-    ollama
     inputs.eight-D.packages.${pkgs.stdenv.hostPlatform.system}.default
     easyeffects
-    /*
-      (aider-chat.override {
-        python3Packages = pkgs.python3Packages.overrideScope (
-          pyFinal: pyPrev: {
-            posthog = null; # Removes the broken package entirely
-          }
-        );
-      })
-    */
     tmux
     cava
     usbutils
