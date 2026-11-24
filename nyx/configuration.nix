@@ -143,7 +143,25 @@
 
   hardware.xpadneo.enable = true;
 
-  services.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = false;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0; # Disables Turbo Boost on battery
+      CPU_SCALING_MAX_FREQ_ON_BAT = 2500000; # Caps CPU to 2.5 GHz on battery
+
+      # Keep NVIDIA GPU active when plugged in, allow D3cold power-off when unplugged
+      RUNTIME_PM_ON_AC = "on";
+      RUNTIME_PM_ON_BAT = "auto";
+    };
+  };
 
   services.openssh = {
     enable = true;
@@ -155,14 +173,37 @@
     };
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "nvidia"
+  ];
 
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
-    open = true; # Set to true if using modern Turing+ open-source kernel modules
+    open = false; # Set to true if using modern Turing+ open-source kernel modules
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true; # Enables `nvidia-offload <game>` when plugged in
+      };
+      amdgpuBusId = "PCI:5:0:0"; # Your AMD Radeon 780M (0000:05:00.0)
+      nvidiaBusId = "PCI:1:0:0"; # Your RTX 4060 (0000:01:00.0)
+    };
+  };
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_DynamicPowerManagement=0x02
+    options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    options nvidia NVreg_TemporaryFilePath=/var/tmp
+    options nvidia NVreg_EnableGpuFirmware=0
+  '';
+
+  environment.sessionVariables = {
+    MESA_VK_DEVICE_SELECT = "1002:1900";
   };
 
   # making sure that the laptop doesnt wake up in the case for any reason
@@ -171,9 +212,20 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'for dev in ADP1 ACAD AC0 XHC XHC0 XHC1; do grep -q \"^$dev.*enabled\" /proc/acpi/wakeup && echo $dev > /proc/acpi/wakeup; done'";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'for dev in XHC3 XHC4; do grep -q \"^$dev.*enabled\" /proc/acpi/wakeup && echo $dev > /proc/acpi/wakeup; done; true'";
     };
   };
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    LidSwitchIgnoreInhibited = "yes";
+  };
+
+  # Ensure logind re-evaluates lid state immediately on wake if AC was unplugged
+  boot.kernelParams = [
+    "acpi.ec_no_wakeup=1"
+  ];
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
