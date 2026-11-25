@@ -160,6 +160,7 @@
       # Keep NVIDIA GPU active when plugged in, allow D3cold power-off when unplugged
       RUNTIME_PM_ON_AC = "on";
       RUNTIME_PM_ON_BAT = "auto";
+      RUNTIME_PM_DRIVER_DENYLIST = ""; # Allows TLP to manage the NVIDIA GPU!
     };
   };
 
@@ -194,6 +195,13 @@
       nvidiaBusId = "PCI:1:0:0"; # Your RTX 4060 (0000:01:00.0)
     };
   };
+  # fix for hyprland to make sure it uses the right gpu
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", KERNELS=="0000:05:00.0", KERNEL=="card*", SYMLINK+="dri/amd-igpu"
+    SUBSYSTEM=="drm", KERNELS=="0000:01:00.0", KERNEL=="card*", SYMLINK+="dri/nvidia-dgpu"
+    SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_TYPE}=="Mains", ACTION=="change", TAG+="systemd", ENV{SYSTEMD_WANTS}="hypr-drm-mode.service"
+    ACTION=="add|change", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{power/control}="auto"
+  '';
 
   boot.extraModprobeConfig = ''
     options nvidia NVreg_DynamicPowerManagement=0x02
@@ -202,9 +210,59 @@
     options nvidia NVreg_EnableGpuFirmware=0
   '';
 
-  environment.sessionVariables = {
-    MESA_VK_DEVICE_SELECT = "1002:1900";
+  systemd.services.hypr-drm-mode = {
+    description = "Set Hyprland AQ_DRM_DEVICES based on AC power state";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "nyx";
+      ExecStart = pkgs.writeShellScript "hypr-drm-mode" ''
+        TARGET="/home/nyx/.config/environment.d/10-hypr-drm.conf"
+        mkdir -p "$(dirname "$TARGET")"
+
+        if grep -q "1" /sys/class/power_supply/A*/online 2>/dev/null; then
+          echo "AQ_DRM_DEVICES=/dev/dri/amd-igpu:/dev/dri/nvidia-dgpu" > "$TARGET"
+        else
+          echo "AQ_DRM_DEVICES=/dev/dri/amd-igpu" > "$TARGET"
+        fi
+      '';
+    };
   };
+
+  # makes sure hyprland starts with the right env vars
+  environment.extraInit = ''
+    if [ -f "$HOME/.config/environment.d/10-hypr-drm.conf" ]; then
+      export $(cat "$HOME/.config/environment.d/10-hypr-drm.conf")
+    fi
+  '';
+
+  services.displayManager.sessionPackages = [
+    (pkgs.writeTextFile {
+      name = "hyprland-hybrid-session";
+      destination = "/share/wayland-sessions/hyprland-hybrid.desktop";
+      text = ''
+        [Desktop Entry]
+        Name=Hyprland (Hybrid GPU)
+        Comment=Hyprland with automatic AC/Battery GPU selection
+        Exec=${pkgs.bash}/bin/bash -c '[ -f "$HOME/.config/environment.d/10-hypr-drm.conf" ] && export $(cat "$HOME/.config/environment.d/10-hypr-drm.conf"); export MESA_VK_DEVICE_SELECT=1002:1900! __GLX_VENDOR_LIBRARY_NAME=mesa __EGL_VENDOR_LIBRARY_FILENAMES=/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json; exec start-hyprland'
+        Type=Application
+      '';
+      passthru.providedSessions = [ "hyprland-hybrid" ];
+    })
+
+    (pkgs.writeTextFile {
+      name = "umbriel";
+      destination = "/share/wayland-sessions/umbriel.desktop";
+      text = ''
+        [Desktop Entry]
+        Name=Umbriel
+        Comment=Umbriel entry since its missing for some reason
+        Exec=start-umbriel
+        Type=Application
+      '';
+      passthru.providedSessions = [ "umbriel" ];
+    })
+  ];
 
   # making sure that the laptop doesnt wake up in the case for any reason
   systemd.services.disable-acpi-wake = {
@@ -352,6 +410,7 @@
     tmux
     cava
     usbutils
+    gamescope
   ];
   nixpkgs.config.problems.handlers.posthog.broken = "warn";
 
